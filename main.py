@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 app = FastAPI(title="Python exercise")
 
+# Memory
 posts = {"title":["test1","test2"],"body" :["body1","body2"],"author" :["author1","author2"],"date":["date1","date2"]}
 
 class Post(BaseModel):
@@ -17,6 +18,7 @@ async def root():
     return "Welcome"
 
 # Editing blog post by title
+# Use /docs
 @app.put("/update/{title}")
 def update_post(title:str,post : Post):
     if (title in posts["title"]):
@@ -28,6 +30,7 @@ def update_post(title:str,post : Post):
         return {"message": "Not found"}
 
 # Deleting blog post by title
+# Use /docs
 @app.delete("/delete/{title}")
 def delete_post(title:str):
     if (title in posts["title"]):
@@ -39,11 +42,13 @@ def delete_post(title:str):
         return {"message": "Not found"}
 
 # List blog post
+# Use /list
 @app.get("/list")
 def list_all():
     return posts["title"]
 
 # View blog post detail
+# Use /list/test1
 @app.get("/list/{title}")
 def list_post(title:str):
     if(title in posts["title"]):
@@ -53,6 +58,7 @@ def list_post(title:str):
     return result
 
 # Creating a new blog post
+# Use /docs
 @app.post("/create")
 def create_post(post : Post):
     if(post.title not in posts["title"]):
