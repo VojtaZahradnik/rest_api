@@ -25,7 +25,7 @@ def update_post(title:str,post : Post):
         index = getIndex("title", title)
         for key in posts:
             posts[key][index] = post.dict()[key]
-        return {"message": "Update"}
+        return {"message": "Updated"}
     else:
         return {"message": "Not found"}
 
